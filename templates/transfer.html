@@ -1,0 +1,31 @@
+{% if not current_user.is_authenticated %}
+    <script>
+        // Redirect to login page if not authenticated
+        window.location.href = "{{ url_for('login') }}";
+    </script>
+{% endif %}
+{% extends 'base.html' %}
+{% block content %}
+<div class="container mt-4">
+    <h2>Transfer Coins</h2>
+    <form method="POST" action="{{ url_for('transfer') }}">
+        <div class="mb-3">
+            <label for="recipient_email" class="form-label">Recipient Email</label>
+            <input type="email" class="form-control" id="recipient_email" name="recipient_email" required>
+        </div>
+        <div class="mb-3">
+            <label for="amount" class="form-label">Amount</label>
+            <input type="number" class="form-control" id="amount" name="amount" min="1" required>
+        </div>
+        <div class="mb-3">
+            <label for="note" class="form-label">Note (Optional)</label>
+            <textarea class="form-control" id="note" name="note" rows="3"></textarea>
+        </div>
+        <div class="mb-3">
+            <label for="password" class="form-label">Confirm Password</label>
+            <input type="password" class="form-control" id="password" name="password" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Transfer</button>
+    </form>     
+</div>
+{% endblock %}

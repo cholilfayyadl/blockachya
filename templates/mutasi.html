@@ -1,0 +1,117 @@
+{% extends 'base.html' %}
+{% block title %}Dashboard{% endblock %}
+{% block content %}
+
+    <div class="container mt-4">
+        <h1 class="mb-4">Mutasi Transaksi</h1>
+        
+        <div class="row">
+            <!-- Card: Total Coins -->
+            <div class="col-md-4">
+                <div class="card text-white bg-primary mb-3">
+                    <div class="card-header">Total Koin Dimiliki</div>
+                    <div class="card-body">
+                        <h5 class="card-title">{{ total_koin_dimiliki }}</h5>
+                        <p class="card-text">Jumlah total koin Anda saat ini.</p>
+                    </div>
+                </div>
+            </div>
+            <!-- Card: Coin Keluar -->
+            <div class="col-md-4">
+                <div class="card text-white bg-danger mb-3">
+                    <div class="card-header">Coin Keluar</div>
+                    <div class="card-body">
+                        <h5 class="card-title">{{ total_coin_keluar }}</h5>
+                        <p class="card-text">Total koin yang di transfer ke pengguna lain.</p>
+                    </div>
+                </div>
+            </div>
+            <!-- Card: Coin Masuk -->
+            <div class="col-md-4">
+                <div class="card text-white bg-success mb-3">
+                    <div class="card-header">Coin Masuk</div>
+                    <div class="card-body">
+                        <h5 class="card-title">{{ total_coin_masuk }}</h5>
+                        <p class="card-text">Total koin yang Anda terima dari pengguna lain.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+
+        <!-- Filter Form -->
+        <form method="GET" action="{{ url_for('mutasi') }}" class="row gy-3 mb-4">
+            <div class="col-md-3">
+                <label for="filter" class="form-label">Filter Mutasi</label>
+                <select class="form-select" id="filter" name="filter">
+                    <option value="daily" {% if selected_filter == 'daily' %}selected{% endif %}>Harian</option>
+                    <option value="monthly" {% if selected_filter == 'monthly' %}selected{% endif %}>Bulanan</option>
+                    <option value="yearly" {% if selected_filter == 'yearly' %}selected{% endif %}>Tahunan</option>
+                    <option value="custom" {% if selected_filter == 'custom' %}selected{% endif %}>Custom</option>
+                </select>
+            </div>
+            <div class="col-md-3" id="start-date-group">
+                <label for="start_date" class="form-label">Dari Tanggal</label>
+                <input type="date" class="form-control" id="start_date" name="start_date" value="{{ start_date }}">
+            </div>
+            <div class="col-md-3" id="end-date-group">
+                <label for="end_date" class="form-label">Sampai Tanggal</label>
+                <input type="date" class="form-control" id="end_date" name="end_date" value="{{ end_date }}">
+            </div>
+            <div class="col-md-3 align-self-end">
+                <button type="submit" class="btn btn-primary w-100">Terapkan</button>
+            </div>
+        </form>
+
+        <!-- Transactions Table -->
+        <table class="table table-striped table-bordered">
+            <thead class="table-dark">
+                <tr>
+                    <th>#</th>
+                    <th>Tanggal</th>
+                    <th>Jenis</th>
+                    <th>Nominal</th>
+                    <th>Detail</th>
+                    <th>Catatan</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for mutasi in mutasi_list %}
+                <tr>
+                    <td>{{ loop.index }}</td>
+                    <td>{{ mutasi.date }}</td>
+                    <td>{{ mutasi.type }}</td>
+                    <td>{{ mutasi.amount }}</td>
+                    <td>{{ mutasi.detail }}</td>
+                    <td>{{ mutasi.note}}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        {% if not mutasi_list %}
+        <p class="text-center">Tidak ada data mutasi untuk periode ini.</p>
+        {% endif %}
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Show or hide date fields based on filter selection
+        const filter = document.getElementById('filter');
+        const startDateGroup = document.getElementById('start-date-group');
+        const endDateGroup = document.getElementById('end-date-group');
+
+        function toggleDateFields() {
+            if (filter.value === 'custom') {
+                startDateGroup.style.display = 'block';
+                endDateGroup.style.display = 'block';
+            } else {
+                startDateGroup.style.display = 'none';
+                endDateGroup.style.display = 'none';
+            }
+        }
+
+        filter.addEventListener('change', toggleDateFields);
+        toggleDateFields(); // Initialize on page load
+    </script>
+{% endblock %}

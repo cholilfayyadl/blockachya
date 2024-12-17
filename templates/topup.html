@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container">
+    <h2>Top-Up Coins</h2>
+    <form method="POST" action="{{ url_for('topup') }}">
+        <div class="form-group">
+            <label for="amount">Jumlah Koin</label>
+            <input type="number" class="form-control" id="amount" name="amount" min="1" required>
+        </div>
+        <button type="submit" class="btn btn-primary mt-3">Request Top-Up</button>
+    </form>
+</div>
+{% endblock %}

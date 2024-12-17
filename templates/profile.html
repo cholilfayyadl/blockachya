@@ -1,0 +1,18 @@
+{% if not current_user.is_authenticated %}
+    <script>
+        // Redirect to login page if not authenticated
+        window.location.href = "{{ url_for('login') }}";
+    </script>
+{% endif %}
+{% extends 'base.html' %}
+{% block title %}Edit Profile{% endblock %}
+{% block content %}
+<h1>Edit Profile</h1>
+<form method="POST">
+    <div class="mb-3">
+        <label for="name" class="form-label">Name</label>
+        <input type="text" class="form-control" id="name" name="name" value="{{ session['name'] }}" required>
+    </div>
+    <button type="submit" class="btn btn-success">Update Profile</button>
+</form>
+{% endblock %}

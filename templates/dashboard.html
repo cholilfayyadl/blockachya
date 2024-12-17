@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container mt-4">
+    <div class="row">
+        <!-- User Information -->
+        <div class="col-md-4">
+            <div class="card shadow-sm">
+                <div class="card-body ">
+                    <h4 class="card-title text-center">Welcome, {{ user['full_name'] }}</h4>
+                    <p class="card-text"><strong>Email:</strong> {{ user['email'] }}</p>
+                    <p class="card-text"><strong>Total Coins:</strong> {{ user['coins'] }}</p>
+                    
+                </div>
+            </div>
+        </div>
+
+        <!-- Actions -->
+        <div class="col-md-8">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title">Quick Actions</h5>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <a href="{{ url_for('transfer') }}" class="btn btn-primary w-100">
+                                Transfer Coins
+                            </a>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <a href="{{ url_for('mutasi') }}" class="btn btn-secondary w-100">
+                                View Mutasi
+                            </a>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <a href="{{ url_for('topup') }}" class="btn btn-success w-100">
+                                Top-Up
+                            </a>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <a href="{{ url_for('topup_requests') }}" class="btn btn-warning w-100">
+                                Top-Up Requests
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Recent Transactions -->
+    <div class="row mt-4">
+        <div class="col-12">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title">Recent Transactions</h5>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -86,7 +86,7 @@ blockachya/
 ### 1. Halaman Dashboard
 Tampilan dashboard dengan informasi saldo koin dan navigasi ke fitur lain.
 
-![Dashboard Screenshot](https://via.placeholder.com/800x400)
+![Dashboard Screenshot](https://github.com/cholilfayyadl/blockachya/blob/main/static/img/dashboard.png)
 
 ### 2. Halaman Transfer
 Form untuk transfer koin ke pengguna lain.
